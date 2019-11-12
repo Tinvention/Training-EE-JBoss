@@ -44,8 +44,8 @@ import net.tinvention.training.ee.product.manager.ProductManager;
  */
 @Path("products")
 public class ProductRS {
-	
-	private final Logger LOGGER = Logger.getLogger( this.getClass().getName() );
+
+	private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
 	@Context
 	private UriInfo uriInfo;
@@ -67,7 +67,7 @@ public class ProductRS {
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_FORM_URLENCODED })
 	public ProductDTO load(@PathParam("id") Long id) {
-		LOGGER.fine("load, ProductRS: " + this + ", productManager: " + productManager );
+		LOGGER.fine("load, ProductRS: " + this + ", productManager: " + productManager);
 		return productManager.load(id);
 	}
 
@@ -86,14 +86,14 @@ public class ProductRS {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<ProductDTO> list() {
-		LOGGER.fine("list, ProductRS: " + this + ", productManager: " + productManager );
+		LOGGER.fine("list, ProductRS: " + this + ", productManager: " + productManager);
 		return productManager.list();
 	}
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response add(@Valid ProductDTO p) {
-		LOGGER.fine("add, ProductRS: " + this + ", productManager: " + productManager );
+		LOGGER.fine("add, ProductRS: " + this + ", productManager: " + productManager);
 		ProductDTO saved = productManager.store(p);
 		URI createdResourceUri = uriInfo.getAbsolutePathBuilder().path(saved.getId().toString()).build();
 		return Response.created(createdResourceUri).build();
@@ -102,8 +102,8 @@ public class ProductRS {
 	@DELETE
 	@Path("{id}")
 	public Response remove(@PathParam("id") Long id) {
-		LOGGER.fine("add, ProductRS: " + this + ", productManager: " + productManager );
-		
+		LOGGER.fine("add, ProductRS: " + this + ", productManager: " + productManager);
+
 		productManager.remove(id);
 
 		return Response.status(Response.Status.OK).build();

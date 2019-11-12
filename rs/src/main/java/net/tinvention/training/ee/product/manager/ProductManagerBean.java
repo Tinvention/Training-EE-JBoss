@@ -29,33 +29,33 @@ import net.tinvention.training.ee.product.repository.ProductRepository;
 
 @Stateless
 public class ProductManagerBean implements ProductManager {
-	
-	private final Logger LOGGER = Logger.getLogger( this.getClass().getName() );
+
+	private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
 	@Inject
 	private ProductRepository productRepository;
 
 	@Override
 	public List<ProductDTO> list() {
-		LOGGER.fine("list, ProductManager: " + this + ", productRepository: " + productRepository );
+		LOGGER.fine("list, ProductManager: " + this + ", productRepository: " + productRepository);
 		return entityToDTO(productRepository.list());
 	}
 
 	@Override
 	public ProductDTO load(final Long id) {
-		LOGGER.fine("load, ProductManager: " + this + ", productRepository: " + productRepository );
+		LOGGER.fine("load, ProductManager: " + this + ", productRepository: " + productRepository);
 		return entityToDTO(productRepository.load(id));
 	}
 
 	@Override
 	public ProductDTO store(ProductDTO toBeSaved) {
-		LOGGER.fine("store, ProductManager: " + this + ", productRepository: " + productRepository );
+		LOGGER.fine("store, ProductManager: " + this + ", productRepository: " + productRepository);
 		return entityToDTO(productRepository.store(dtoToEntity(toBeSaved)));
 	}
 
 	@Override
 	public void remove(Long idToBeRemoved) {
-		LOGGER.fine("remove, ProductManager: " + this + ", productRepository: " + productRepository );
+		LOGGER.fine("remove, ProductManager: " + this + ", productRepository: " + productRepository);
 		productRepository.remove(productRepository.load(idToBeRemoved));
 	}
 
@@ -63,13 +63,13 @@ public class ProductManagerBean implements ProductManager {
 		return entities.stream().map(this::entityToDTO).collect(Collectors.toList());
 	}
 
-	//TODO may I use mapstruct or similar other libs ?
+	// TODO may I use mapstruct or similar other libs ?
 	private ProductDTO entityToDTO(final ProductEntity entity) {
 		ProductDTO result = new ProductDTO();
 		result.setId(entity.getId());
 		result.setPurchaseDate(entity.getPurchaseDate());
 		result.setName(entity.getName());
-		
+
 		Optional.ofNullable(entity.getAddress()).ifPresent(address -> {
 			result.setCity(address.getCity());
 			result.setCountry(address.getCountry());

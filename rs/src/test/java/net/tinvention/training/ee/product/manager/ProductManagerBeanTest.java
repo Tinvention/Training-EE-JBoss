@@ -1,4 +1,4 @@
-package net.tinvention.training.ee.product.repository;
+package net.tinvention.training.ee.product.manager;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,7 +20,7 @@ import net.tinvention.training.ee.product.DefaultDeployment;
 
 @RunWith(Arquillian.class)
 @Transactional(TransactionMode.ROLLBACK)
-public class ProductRepositoryTest {
+public class ProductManagerBeanTest {
 
 	@Deployment
 	public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
@@ -28,37 +28,37 @@ public class ProductRepositoryTest {
 	}
 
 	@Inject
-	private ProductRepository productRepository;
+	private ProductManager productManager;
 
-	private ProductEntity toBeSaved;
+	private ProductDTO toBeSaved;
 
 	private final Long ID10 = -10L;
 
 	@Before
 	public void setUp() throws Exception {
-		toBeSaved = new ProductEntity();
+		toBeSaved = new ProductDTO();
 		toBeSaved.setName("name_1");
 	}
 
 	@Test
 	public void list() throws Exception {
-		assertEquals(2, productRepository.list().size());
+		assertEquals(2, productManager.list().size());
 	}
 
 	@Test
-	public void testStore() {
-		assertNotNull(productRepository.store(toBeSaved).getId());
+	public void store() {
+		assertNotNull(productManager.store(toBeSaved).getId());
 	}
 
 	@Test
-	public void testLoad() {
-		assertNotNull(productRepository.load(ID10).getName());
+	public void load() {
+		assertNotNull(productManager.load(ID10).getName());
 	}
 
 	@Test
-	public void testRemove() {
-		productRepository.remove(productRepository.load(ID10));
-		assertEquals(1, productRepository.list().size());
+	public void remove() {
+		productManager.remove(ID10);
+		assertEquals(1, productManager.list().size());
 	}
 
 }

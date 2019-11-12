@@ -7,25 +7,25 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address implements Serializable {
 
-  private static final long serialVersionUID = 883754296730144807L;
+	private static final long serialVersionUID = 883754296730144807L;
 
-  private String city;
-  private String country;
+	private String city;
+	private String country;
 
-  public String getCity() {
-    return city;
-  }
+	public String getCity() {
+		return city;
+	}
 
-  public void setCity(String city) {
-    this.city = city;
-  }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-  public String getCountry() {
-    return country;
-  }
+	public String getCountry() {
+		return country;
+	}
 
-  public void setCountry(String country) {
-    this.country = country;
-  }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
 }
